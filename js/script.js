@@ -17,9 +17,25 @@ console.log(larger);
 window.addEventListener("DOMContentLoaded", (event) => {
     let button = document.querySelector('#changeTitle');
     console.log(button);
-    button.addEventListener('click', (e) => {
-        console.log(e)
-        let header = document.querySelector('h1');
-        header.innerText = "Modifié en JS";
+    button.addEventListener('click', function(e) {
+        const myImage = document.querySelector('img');
+
+        let myRequest = new Request('https://cataas.com/api/tags');
+
+        fetch(myRequest)
+        .then(function(response) {
+            console.log(response);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(function(response) {
+            console.log(response)
+        }).then(() => {
+            let header = document.querySelector('h1');
+            header.innerText = "Modifié en JS";
+        });
+
     })
 });
